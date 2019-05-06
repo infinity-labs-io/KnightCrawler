@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using InfinityLabs.KnightCrawler.Library.Exceptions;
+using InfinityLabs.KnightCrawler.Library.Extensions;
 
 namespace InfinityLabs.KnightCrawler.Library.Parsers
 {
@@ -11,9 +12,22 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
     {
         private const string PATTERN = "<a.*?href=\\\"(?<url>[^\"]*)\\\"";
 
+        /*
+#
+#something
+some/link
+//some/link
+
+https://some/link
+http://some/link
+
+tel:1241233
+mailto:some@link.com
+         */
+
         public bool CanHandleLink(string link)
         {
-            throw new NotImplementedException();
+            return Regex.IsMatch(link, "([\\w]+\\:\\/\\/.*|#[\\w]*|.*\\/.*)");
         }
 
         public List<string> GetLinks(string content)

@@ -37,7 +37,8 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
         [TestCase("//some/link", ExpectedResult = true)]
         [TestCase("https://some/link", ExpectedResult = true)]
         [TestCase("http://some/link", ExpectedResult = true)]
-        [TestCase("mailto://some/link", ExpectedResult = false)]
+        [TestCase("mailto:someone@somewhere.something", ExpectedResult = false)]
+        [TestCase("tel:+18412323222", ExpectedResult = false)]
         public bool Test_CanHandleLink(string link)
         {
             return _discovery.CanHandleLink(link);
