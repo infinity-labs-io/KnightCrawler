@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace InfinityLabs.KnightCrawler.Library.Exceptions
 {
     [Serializable]
-    internal class NoLinksFoundException : Exception
+    public class NoLinksFoundException : Exception
     {
         public NoLinksFoundException()
         {

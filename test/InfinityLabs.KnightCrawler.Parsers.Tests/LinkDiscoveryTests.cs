@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using InfinityLabs.KnightCrawler.Library.Parsers;
+using InfinityLabs.KnightCrawler.Library.Exceptions;
 using System.Threading.Tasks;
 
 namespace InfinityLabs.KnightCrawler.Parsers.Tests
@@ -15,12 +16,17 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
         }
         
         [TestCase("sample_c", ExpectedResult = 3)]
-        [TestCase("sample_d", ExpectedResult = 0)]
         public async Task<int> Test_LinkDiscovery(string fileName)
         {
             var content = await GetFileContentAsync(fileName);
             var links = _discovery.GetLinks(content);
             return links.Count;
+        }
+
+        public async Task Test_LinkDiscovery_ThrowsNoLinksFoundException()
+        {
+            var content = await GetFileContentAsync("sample_d");
+            Assert.That(() => _discovery.GetLinks(content), Throws.TypeOf<NoLinksFoundException>());
         }
     }
 }
