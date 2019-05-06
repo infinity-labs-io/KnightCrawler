@@ -12,19 +12,6 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
     {
         private const string PATTERN = "<a.*?href=\\\"(?<url>[^\"]*)\\\"";
 
-        /*
-#
-#something
-some/link
-//some/link
-
-https://some/link
-http://some/link
-
-tel:1241233
-mailto:some@link.com
-         */
-
         public bool CanHandleLink(string link)
         {
             return Regex.IsMatch(link, "([\\w]+\\:\\/\\/.*|#[\\w]*|.*\\/.*)");
