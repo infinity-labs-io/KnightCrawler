@@ -15,6 +15,8 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
             _discovery = new LinkDiscovery();
         }
         
+        [TestCase("sample_a", ExpectedResult = 1786)]
+        [TestCase("sample_b", ExpectedResult = 232)]
         [TestCase("sample_c", ExpectedResult = 3)]
         public async Task<int> Test_LinkDiscovery(string fileName)
         {
