@@ -30,5 +30,17 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
             var content = await GetFileContentAsync("sample_d");
             Assert.That(() => _discovery.GetLinks(content), Throws.TypeOf<NoLinksFoundException>());
         }
+
+        [TestCase("#", ExpectedResult = true)]
+        [TestCase("#something", ExpectedResult = true)]
+        [TestCase("some/link", ExpectedResult = true)]
+        [TestCase("//some/link", ExpectedResult = true)]
+        [TestCase("https://some/link", ExpectedResult = true)]
+        [TestCase("http://some/link", ExpectedResult = true)]
+        [TestCase("mailto://some/link", ExpectedResult = false)]
+        public bool Test_CanHandleLink(string link)
+        {
+            return _discovery.CanHandleLink(link);
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
     public interface ILinkDiscovery
     {
         List<string> GetLinks(string content);
+
+        bool CanHandleLink(string link);
     }
 }

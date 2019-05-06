@@ -10,7 +10,12 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
     public class LinkDiscovery : ILinkDiscovery
     {
         private const string PATTERN = "<a.*?href=\\\"(?<url>[^\"]*)\\\"";
-        
+
+        public bool CanHandleLink(string link)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<string> GetLinks(string content)
         {
             var regex = new Regex(PATTERN);
