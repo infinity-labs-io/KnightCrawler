@@ -2,6 +2,10 @@
 
 [![CircleCI](https://circleci.com/gh/infinity-labs-io/KnightCrawler.svg?style=svg)](https://circleci.com/gh/infinity-labs-io/KnightCrawler)
 
+# Requirements
+
+- Dotnet SDK (for building) and Runtime (for running) | [Both Can be found here](https://dotnet.microsoft.com/download)
+
 # Basic usage
 
 When you have the .NET Command Line Interface installed on your OS of choice, you can try it out using some of the samples on the [dotnet/core repo](https://github.com/dotnet/core/tree/master/samples). You can download the sample in a directory, and then you can kick the tires of the CLI.
@@ -26,7 +30,7 @@ Run the Application
 
 `-d | --depth` (Default: 1) How many levels down to go.
 
-`-p | --path` (Default: Destop) Folder to place results file in.
+`-p | --path` (Default: Desktop) Folder to place results file in.
 
 `-o | --output` (Default: JSON) Output type (CSV, HTML, JSON)
 
