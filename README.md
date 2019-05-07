@@ -4,7 +4,7 @@
 
 # Requirements
 
-- Dotnet SDK (for building) and Runtime (for running) | [Both Can be found here](https://dotnet.microsoft.com/download)
+- Dotnet SDK (for building) and runtime (for running) - [Both can be found here](https://dotnet.microsoft.com/download)
 
 # Basic usage
 
