@@ -36,7 +36,7 @@ namespace InfinityLabs.KnightCrawler.Library.Traversers
                         .ToList();
                     
                     // Wait for next search layer to complete
-                    currentNode.Children = await Task.WhenAll(tasks);
+                    currentNode.Children = (await Task.WhenAll(tasks)).ToList();
                     return currentNode;
                 }
                 catch (Exception ex)
