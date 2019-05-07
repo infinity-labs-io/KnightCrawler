@@ -9,7 +9,7 @@ using static System.Environment;
 
 namespace InfinityLabs.KnightCrawler.Library.NodeWriters
 {
-    public class HtmlNodeWriter : IDisposable
+    public class HtmlNodeWriter : INodeWriter
     {
         private readonly Stream _stream;
 
