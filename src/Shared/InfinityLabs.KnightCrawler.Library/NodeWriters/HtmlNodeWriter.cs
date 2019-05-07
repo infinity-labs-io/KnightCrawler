@@ -9,32 +9,20 @@ using static System.Environment;
 
 namespace InfinityLabs.KnightCrawler.Library.NodeWriters
 {
-    public class HtmlNodeWriter : INodeWriter
+    public class HtmlNodeWriter : NodeStreamWriterBase
     {
-        private readonly Stream _stream;
-
-        public HtmlNodeWriter(Stream stream)
+        public HtmlNodeWriter(Stream stream) : base(stream)
         {
-            _stream = stream;
         }
 
-        public async Task WriteAsync(ILinkNode node)
-        {
-            var content = buildList(node);
-            var html = buildHtml(content);
-            using (var writer = new StreamWriter(_stream))
-            {
-                await writer.WriteAsync(html);
-            }
-        }
-        private string buildList(ILinkNode node)
+        protected override string GetStreamContent(ILinkNode node)
         {
             var header = buildRow(node.Link.ToString());
             var hasChildren = node.Children.Count > 0;
             if (hasChildren)
             {
                 var children = string.Join("", node.Children
-                    .Select(buildList));
+                    .Select(GetStreamContent));
                 children = buildRow(buildElement("ul", children));
                 return header + children;
             }
@@ -65,11 +53,6 @@ namespace InfinityLabs.KnightCrawler.Library.NodeWriters
         private string buildElement(string element, string content)
         {
             return $"<{element}>{content}</{element}>";
-        }
-
-        public void Dispose()
-        {
-            _stream?.Dispose();
         }
     }
 }

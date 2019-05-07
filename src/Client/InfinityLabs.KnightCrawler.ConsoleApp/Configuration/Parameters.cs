@@ -15,5 +15,23 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp.Configuration
         public bool Trace { get; set; }
         
         public string OutputPath { get; internal set; }
+
+        public string OutputExtension
+        {
+            get
+            {
+                switch (OutputFormat)
+                {
+                    case Format.CSV:
+                        return ".csv";
+                    case Format.HTML:
+                        return ".html";
+                    case Format.JSON:
+                        return ".json";
+                    default:
+                        return ".txt";
+                }
+            }
+        }
     }
 }

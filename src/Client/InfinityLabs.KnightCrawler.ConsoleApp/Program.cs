@@ -61,12 +61,25 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp
             var traverser = new LinkTraverser(crawler); 
             var results = await traverser.Traverse(parameters.Url, parameters.Depth);
 
-            var extension = parameters.OutputFormat == Format.HTML ? ".html" : ".csv";
+            var extension = parameters.OutputExtension;
             var path = Path.Combine(parameters.OutputPath, "results" + extension);
             using (var file = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-            using (var writer = new HtmlNodeWriter(file))
+            using (var writer = getWriter(file, parameters.OutputFormat))
             {
                 await writer.WriteAsync(results);
+            }
+        }
+
+        static INodeWriter getWriter(Stream stream, Format format)
+        {
+            switch (format)
+            {
+                case Format.HTML:
+                    return new HtmlNodeWriter(stream);
+                case Format.JSON :
+                    return new JsonNodeWriter(stream);
+                default:
+                    throw new InvalidOperationException("No supported parser.");
             }
         }
     }

@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace InfinityLabs.KnightCrawler.Library.Traversers
 {
     public class LinkNode : ILinkNode
     {
         public List<ILinkNode> Children { get; set; }
+
         public Uri Link { get; set; }
+
+        [IgnoreDataMember]
         public int Depth { get; set; }
 
         public bool HasError => Exception != null;
