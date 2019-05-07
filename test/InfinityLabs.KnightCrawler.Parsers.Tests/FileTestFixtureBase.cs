@@ -26,7 +26,7 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
         
         protected async Task<string> GetFileContentAsync(string fileName)
         {
-            var sampleFolder = "Samples";
+            var sampleFolder = "testdata";
             var path = Path.Combine(sampleFolder, fileName + ".html");
             using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var reader = new StreamReader(fileStream))

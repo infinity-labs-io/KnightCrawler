@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Samples\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Samples\" />
+    <None Include="testdata\**" CopyToOutputDirectory="PreserveNewest" LinkBase="testdata\" />
   </ItemGroup>
 
   <ItemGroup>
