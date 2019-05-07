@@ -31,5 +31,10 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
             // TODO: Throw error
             throw new NoLinksFoundException("No links found in the provided HTML.");
         }
+
+        public bool RequiresBasePath(string link)
+        {
+            return Regex.IsMatch(link, "(#[\\w]*|^[\\w\\/]+\\/*$)");
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
         List<string> GetLinks(string content);
 
         bool CanHandleLink(string link);
+
+        bool RequiresBasePath(string link);
     }
 }

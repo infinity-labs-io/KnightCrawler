@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using InfinityLabs.KnightCrawler.Library.Crawlers;
+using InfinityLabs.KnightCrawler.Library.Parsers;
 using InfinityLabs.KnightCrawler.Library.Providers;
 
 namespace InfinityLabs.KnightCrawler.Library.Crawlers
@@ -9,15 +10,64 @@ namespace InfinityLabs.KnightCrawler.Library.Crawlers
     public class LinkCrawler : ILinkCrawler
     {
         private readonly IHtmlContentProvider _htmlProvider;
+        private readonly ILinkDiscovery _linkDiscovery;
 
-        public LinkCrawler(IHtmlContentProvider htmlProvider)
+        public LinkCrawler(IHtmlContentProvider htmlProvider, ILinkDiscovery linkDiscovery)
         {
             _htmlProvider = htmlProvider;
+            _linkDiscovery = linkDiscovery;
         }
         
-        public Task<List<CrawledLink>> GetLinksFromHtmlPageAsync(Uri url)
+        public async Task<CrawlResult> GetLinksFromHtmlPageAsync(Uri url)
         {
-            throw new NotImplementedException();
+            var result = new CrawlResult()
+            {
+                Success = true
+            };
+
+            try
+            {
+                var content = await _htmlProvider.GetHtmlContentAsync(url);
+                var links = _linkDiscovery.GetLinks(content);
+                foreach (var link in links)
+                {
+                    var crawledLink = new CrawledLink()
+                    {
+                        Success = false
+                    };
+                    if (_linkDiscovery.CanHandleLink(link))
+                    {
+                        try
+                        {
+                            if (_linkDiscovery.RequiresBasePath(link))
+                            {
+                                var sanitizedLink = link.Replace("//", "");
+                                crawledLink.Uri = new Uri(url, sanitizedLink);
+                                crawledLink.Success = true;
+                            }
+                            else
+                            {
+                                crawledLink.Uri = new Uri(link);
+                            }
+                            result.Links.Add(crawledLink);
+                        }
+                        catch (Exception ex)
+                        {
+                            crawledLink.Exception = ex;
+                        }
+                    }
+                    else
+                    {
+                        crawledLink.Exception = new FormatException("Cannot handle format");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Exception = ex;
+                result.Success = false;
+            }
+            return result;
         }
     }
 }

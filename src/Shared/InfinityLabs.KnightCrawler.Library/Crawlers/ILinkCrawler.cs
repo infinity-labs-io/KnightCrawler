@@ -6,6 +6,6 @@ namespace InfinityLabs.KnightCrawler.Library.Crawlers
 {
     public interface ILinkCrawler
     {
-        Task<List<CrawledLink>> GetLinksFromHtmlPageAsync(Uri url);
+        Task<CrawlResult> GetLinksFromHtmlPageAsync(Uri url);
     }
 }

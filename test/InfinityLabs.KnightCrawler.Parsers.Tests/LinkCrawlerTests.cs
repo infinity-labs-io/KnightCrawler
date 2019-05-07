@@ -17,7 +17,7 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
 
         public LinkCrawlerTests()
         {
-            _crawler = new LinkCrawler(this);
+            _crawler = new LinkCrawler(this, new LinkDiscovery());
         }
 
         public Task<string> GetHtmlContentAsync(Uri url)
@@ -34,20 +34,22 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
         public async Task Test_GetLinksFromHtmlPageAsync()
         {
             // Relative
-            var links = await _crawler.GetLinksFromHtmlPageAsync(new Uri("https://test.com/"));
+            var result = await _crawler.GetLinksFromHtmlPageAsync(new Uri("https://test.com/"));
 
             var expected = "https://test.com/some/link/somewhere";
-            Assert.That(links.Count == 1);
-            Assert.That(links.Select(l => l.Uri.ToString()), Has.One.Member(expected));
+            Assert.That(result.Success);
+            Assert.That(result.Links.Count == 1);
+            Assert.AreEqual(result.Links[0].Uri.ToString(), expected);
 
-            links = await _crawler.GetLinksFromHtmlPageAsync(new Uri("http://test2.com/"));
-            Assert.That(links.Count == 2);
+            result = await _crawler.GetLinksFromHtmlPageAsync(new Uri("http://test2.com/"));
+            Assert.That(result.Success);
+            Assert.That(result.Links.Count == 2);
 
-            expected = "https://test2.com/#some-anchor";
-            Assert.That(links.Select(l => l.Uri.ToString()), Has.One.Member(expected));
+            expected = "http://test2.com/#some-anchor";
+            Assert.That(result.Links.Select(l => l.Uri.ToString()), Has.Member(expected));
 
-            expected = "https://test2.com/some/matching/protocol/";
-            Assert.That(links.Select(l => l.Uri.ToString()), Has.One.Member(expected));
+            expected = "http://test2.com/some/matching/protocol";
+            Assert.That(result.Links.Select(l => l.Uri.ToString()), Has.Member(expected));
         }
     }
 }
