@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    steps:
+      - checkout
+      - run: dotnet restore src/Client/InfinityLabs.KnightCrawler.ConsoleApp/InfinityLabs.KnightCrawler.ConsoleApp.csproj
+      - run: dotnet build src/Client/InfinityLabs.KnightCrawler.ConsoleApp/InfinityLabs.KnightCrawler.ConsoleApp.csproj
+  test:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    steps:
+      - checkout
+      - run: dotnet test test/InfinityLabs.KnightCrawler.Parsers.Tests/InfinityLabs.KnightCrawler.Parsers.Tests.csproj
