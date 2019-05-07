@@ -35,7 +35,7 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp
 
             parser.Setup<Format>('o', "output")
                 .Callback(p => parameters.OutputFormat = p)
-                .SetDefault(Format.HTML);
+                .SetDefault(Format.JSON);
 
             parser
                 .Setup<bool>('t', "trace")

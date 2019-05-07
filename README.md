@@ -24,8 +24,8 @@ Run the Application
 
 `-d | --depth` (Default: 1) How many levels down to go.
 
-`-p | --path` Folder to place results file in.
+`-p | --path` (Default: Destop) Folder to place results file in.
 
-`-o | --output` Output type (CSV, HTML, JSON)
+`-o | --output` (Default: JSON) Output type (CSV, HTML, JSON)
 
 `-t | --trace` Switch to enable console output.
