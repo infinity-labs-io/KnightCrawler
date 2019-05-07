@@ -27,19 +27,16 @@ namespace InfinityLabs.KnightCrawler.Library.Traversers
                 try
                 {
                     var crawlResults = await _crawler.GetLinksFromHtmlPageAsync(uri);
-                    var acceptableLinks = crawlResults.Links.Where(l => l.Success);
-
-                    var children = new ConcurrentBag<ILinkNode>();
-                    var tasks = acceptableLinks
+                    
+                    // Build tasks to run searches in parallel
+                    // Only scan Uri's that are traversable
+                    var tasks = crawlResults.Links
+                        .Where(l => l.Success)
                         .Select(s => Traverse(s.Uri, depth -1))
                         .ToList();
-
-                    var results = await Task.WhenAll(tasks);
-                    foreach (var node in results)
-                    {
-                        children.Add(node);
-                    }
-                    currentNode.Children = children.ToList();
+                    
+                    // Wait for next search layer to complete
+                    currentNode.Children = await Task.WhenAll(tasks);
                     return currentNode;
                 }
                 catch (Exception ex)
