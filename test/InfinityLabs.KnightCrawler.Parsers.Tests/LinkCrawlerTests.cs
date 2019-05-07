@@ -17,7 +17,7 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
 
         public LinkCrawlerTests()
         {
-            _crawler = new LinkCrawler(this, new LinkDiscovery());
+            _crawler = new LinkCrawler(Configuration, this, new LinkDiscovery());
         }
 
         public Task<string> GetHtmlContentAsync(Uri url)

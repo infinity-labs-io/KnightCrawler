@@ -30,7 +30,7 @@ namespace InfinityLabs.KnightCrawler.Parsers.Tests
                 .Returns<Uri>(s => Task.FromResult(_content[s.ToString()]));
             var contentProvider = mockContentProvider.Object;
 
-            var crawler = new LinkCrawler(contentProvider, new LinkDiscovery());
+            var crawler = new LinkCrawler(Configuration, contentProvider, new LinkDiscovery());
             var traverser = new LinkTraverser(crawler);
             var results = await traverser.Traverse(new Uri("http://test.com"), 1);
             Assert.That(results.Children, Has.Count.EqualTo(2));
