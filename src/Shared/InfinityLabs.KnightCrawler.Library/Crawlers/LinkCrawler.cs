@@ -42,6 +42,10 @@ namespace InfinityLabs.KnightCrawler.Library.Crawlers
                             if (_linkDiscovery.RequiresBasePath(link))
                             {
                                 var sanitizedLink = link.Replace("//", "");
+                                if (link.StartsWith("./"))
+                                {
+                                    sanitizedLink = sanitizedLink.Replace(".", "");
+                                }
                                 crawledLink.Uri = new Uri(url, sanitizedLink);
                             }
                             else
