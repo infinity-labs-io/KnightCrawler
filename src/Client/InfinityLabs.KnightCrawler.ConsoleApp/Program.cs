@@ -26,7 +26,7 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp
 
             parser.Setup<int>('d', "depth")
                 .Callback(p => parameters.Depth = p)
-                .Required();
+                .SetDefault(1);
 
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             parser.Setup<string>('p', "path")
@@ -48,6 +48,10 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp
             {
                 RunAsync(parameters).Wait(Timeout.Infinite);
             }
+            Console.WriteLine(result.ErrorText);
+
+            Console.WriteLine("Done. Press any key to quit.");
+            Console.ReadLine();
         }
 
         static async Task RunAsync(Parameters parameters)
@@ -64,9 +68,6 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp
             {
                 await writer.WriteAsync(results);
             }
-
-            Console.WriteLine("Done. Press any key to quit.");
-            Console.ReadLine();
         }
     }
 }

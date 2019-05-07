@@ -20,9 +20,9 @@ Run the Application
 
 ## Arguments
 
-`-u | --url` (required) The url to scrape links from.
+`-u | --url` (Required) The url to scrape links from.
 
-`-d | --depth` (required) How many levels down to go.
+`-d | --depth` (Default: 1) How many levels down to go.
 
 `-p | --path` Folder to place results file in.
 
