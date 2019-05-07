@@ -13,5 +13,7 @@ namespace InfinityLabs.KnightCrawler.ConsoleApp.Configuration
         public Format OutputFormat { get; set; }
         
         public bool Trace { get; set; }
+        
+        public string OutputPath { get; internal set; }
     }
 }
