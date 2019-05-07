@@ -28,7 +28,6 @@ namespace InfinityLabs.KnightCrawler.Library.Parsers
                     .Select(m => m.Groups["url"].Value)
                     .ToList();
             }
-            // TODO: Throw error
             throw new NoLinksFoundException("No links found in the provided HTML.");
         }
 
