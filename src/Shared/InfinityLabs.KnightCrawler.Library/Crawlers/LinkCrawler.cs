@@ -43,12 +43,12 @@ namespace InfinityLabs.KnightCrawler.Library.Crawlers
                             {
                                 var sanitizedLink = link.Replace("//", "");
                                 crawledLink.Uri = new Uri(url, sanitizedLink);
-                                crawledLink.Success = true;
                             }
                             else
                             {
                                 crawledLink.Uri = new Uri(link);
                             }
+                            crawledLink.Success = true;
                             result.Links.Add(crawledLink);
                         }
                         catch (Exception ex)
